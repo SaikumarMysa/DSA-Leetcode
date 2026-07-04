@@ -1,39 +1,34 @@
 class Solution {
     public int search(int[] nums, int target) {
-        int pivot = 0;
         int n = nums.length;
 
-        for(int i=1;i<n;i++){
-            if(nums[i]>nums[i-1]){
-                continue;
-            }else{
-                pivot=i;
-                break;
-            }
-        }
-        int l=0, h=pivot-1;
-        while(l<=h){
-            int m=l+(h-l)/2;
-            if(nums[m]==target){
-                return m;
-            }else if(nums[m]>target){
-                h=m-1;
-            }else{
-                l=m+1;
-            }
-        }
-        int low=pivot, high=n-1;
+        int low = 0, high=n-1;
+
         while(low<=high){
-            int mid=low+(high-low)/2;
+            int mid = low+(high-low)/2;
+
             if(nums[mid]==target){
                 return mid;
-            }else if(nums[mid]>target){
-                high=mid-1;
+            }
+
+            if(nums[low]<=nums[mid]){
+                //i.e left side is sorted
+                //what if target lies in b.w low to mid?
+                if(target>=nums[low]&&target<nums[mid]){
+                    //ignoring the right half
+                    high=mid-1;
+                }else{
+                    //if target is not in left half it must be somewhre after mid, so ignoring the left half
+                    low=mid+1;
+                }
             }else{
-                low=mid+1;
+                if(target>nums[mid]&&target<=nums[high]){
+                    low=mid+1;
+                }else{
+                    high=mid-1;
+                }
             }
         }
-           
-    return -1;
+        return -1;
     }
 }
