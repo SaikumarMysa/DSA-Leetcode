@@ -1,45 +1,41 @@
 class Solution {
-    //Divide
-    public void divide(int[] arr, int si, int ei){
-        //Base condition:
-        if(si>=ei){
-            return;
-        }
-        int mid = si+(ei-si)/2;
+    public static int partition(int[] arr, int low, int high){
+        int pivot = arr[low];
+        int i = low-1;
+        int j= high+1;
+        while(true){
+            do{
+                i++;
+            }while(arr[i]<pivot);
 
-        divide(arr, si, mid);
-        divide(arr, mid+1, ei);
-        conquer(arr, si, mid, ei);
-    }
-    //Conquer
-    public void conquer(int[] arr, int si, int mid, int ei){
-    int idx1 = si;
-    int idx2 = mid+1;
-    int x =0;
-    int merged[] = new int[ei-si+1];
+            do{
+                j--;
+            }while(arr[j]>pivot);
 
-    while(idx1<=mid && idx2<=ei){
-        if(arr[idx1]<arr[idx2]){
-            merged[x++]=arr[idx1++];
-        }else{
-            merged[x++]=arr[idx2++];
+            if(i>=j){
+                return j;
+            }
+            swap(arr,i,j);
         }
     }
-    while(idx1<=mid){
-        merged[x++]=arr[idx1++];
-    } 
-    while(idx2<=ei){
-        merged[x++]=arr[idx2++];
+
+    public static void swap(int arr[], int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
-    for(int i=0,j=si;i<merged.length;i++,j++){
-        arr[j]=merged[i];
+
+    public static void quickSort(int[] nums, int low, int high){
+        if(low<high){
+            int p = partition(nums, low, high);
+            quickSort(nums, low, p);
+            quickSort(nums, p+1, high);
+        }
     }
-}
 
     public int[] sortArray(int[] nums) {
-        int si = 0;
-        int ei = nums.length-1;
-        divide(nums, si, ei);
-    return nums;
+
+        quickSort(nums, 0, nums.length-1);
+        return nums;
     }
 }
