@@ -4,8 +4,13 @@ class Solution {
        int n= haystack.length();
 
        for(int i=0; i<=n-m; i++){
-        String sub=haystack.substring(i,i+m);
-        if(sub.equals(needle)){
+        int j;
+        for(j=0;j<m;j++){
+            if(haystack.charAt(i+j)!=needle.charAt(j)){
+                break;
+            }
+        }
+        if(j==m){
             return i;
         }
        }
