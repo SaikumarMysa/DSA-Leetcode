@@ -10,9 +10,11 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        //if only one node is present,removing kth gives null
         if(head.next==null){
             return null;
         }
+
         //First find the nth node to remove
         ListNode fast = head;
         ListNode slow = head;
@@ -24,7 +26,8 @@ class Solution {
             fast=fast.next;
         }
         //here slow is the required nth node.
-
+        //what if slow is the head, and is to remove that?
+        //just point head to its next node as a new head
         if(slow==head){
             head=head.next;
         }else{
@@ -37,7 +40,6 @@ class Solution {
         curr.next = slow.next;
         slow.next = null;
         }
-       
         return head;
     }
 }
