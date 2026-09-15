@@ -7,7 +7,7 @@ class Solution {
             if(nums[r]!=nums[l-1]){
                 nums[l]=nums[r];
                 l++;
-                r++;
+                //r++;
             }else{
                 r++;
             }
