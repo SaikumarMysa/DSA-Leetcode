@@ -1,46 +1,25 @@
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        int n = nums.length;
+      List<List<Integer>> list = new ArrayList<>();
 
         Arrays.sort(nums);
 
-        List<List<Integer>> list = new ArrayList<>();
+        int n=nums.length;
 
-        for(int x=0; x<=n-4; x++){
-            if(x>0 && nums[x]==nums[x-1]) continue;
-            for(int i=x+1; i<=n-3; i++){
-                if(i>x+1 && nums[i]==nums[i-1]) continue;
-                int left = i+1;
-                int right = n-1;
-                while(left<right){
-                    long sum = (long) nums[x]+nums[i]+nums[left]+nums[right];
-                    if(sum==target){
-                        list.add(Arrays.asList(nums[x], nums[i], nums[left], nums[right]));
-                        left++;
-                        right--;
-                        
-                        while(left<right){
-                            if(nums[left]==nums[left-1]){
-                                left++;
-                            }else{
-                                break;
-                            }
-                            }
-                        while(left<right){
-                            if(nums[right]==nums[right+1]){
-                                right--;
-                            }else{
-                                break;
-                            }
+        for(int i=0; i<=n-4; i++){
+            if(i>0&&nums[i]==nums[i-1]) continue;
+            for(int j=i+1; j<=n-3;j++){
+                if(j>i+1&&nums[j]==nums[j-1]) continue;
+                for(int k=j+1; k<=n-2;k++){
+                    if(k>j+1 && nums[k]==nums[k-1]) continue;
+                    for(int l=k+1; l<=n-1; l++){
+                        if(l>k+1 && nums[l]==nums[l-1]) continue;
+                        long sum=(long) nums[i]+nums[j]+nums[k]+nums[l];
+                        if(sum==target){
+                            list.add(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
                         }
-                       
-                    }else if(sum>target){
-                        right--;
-                    }else{
-                        left++;
                     }
                 }
-               
             }
         }
         return list;
