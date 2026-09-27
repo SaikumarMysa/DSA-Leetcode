@@ -1,39 +1,27 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
+        
+        int n=s2.length();
 
-        int m = s1.length();//pat
-        int n=s2.length();//txt
+        int m=s1.length();
 
         if(n<m){
             return false;
         }
 
-        int[] pattern = new int[26];
-        for(int i=0; i<m; i++){
-            pattern[s1.charAt(i)-'a']++;
-        }
-        //calculate first window
-        int l=0,r=m;
-        int[] window = new int[26];
-        for(int i=0; i<m; i++){
-            window[s2.charAt(i)-'a']++;
-        }
-        if(Arrays.equals(pattern, window)){
-            return true;
-        }
+        char ch[] = s1.toCharArray();//[a,b]
 
-        while(r<n){
-            //remove the occurence of the element leaving from the window
-            window[s2.charAt(l)-'a']--;
-            l++;//removed the element 
-            //add the occurence of the elemnt entering the window
-            window[s2.charAt(r)-'a']++;
-            //check they are equl
-            if(Arrays.equals(pattern,window)){
+        Arrays.sort(ch);
+
+        for(int i=0; i<=n-m; i++){
+            String ss = s2.substring(i,i+m);
+            char cv[]=ss.toCharArray();
+            Arrays.sort(cv);
+            if(Arrays.equals(ch,cv)){
                 return true;
             }
-            r++;
         }
         return false;
+
     }
 }
