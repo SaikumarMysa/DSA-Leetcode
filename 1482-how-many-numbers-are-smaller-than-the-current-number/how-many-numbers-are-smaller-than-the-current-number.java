@@ -2,17 +2,17 @@ class Solution {
     public int[] smallerNumbersThanCurrent(int[] nums) {
         int n=nums.length;
 
-        int myArr[]=new int[n];
-        int x=0;
-        for(int i=0;i<n;i++){
-            int c=0;
-            for(int j=0;j<n;j++){
-                if(nums[i]>nums[j]){
-                    c++;
+        int[] ans=new int[n];
+
+        for(int i=0; i<n; i++){
+            int count=0;
+            for(int j=0; j<n; j++){
+                if(j!=i&&nums[j]<nums[i]){
+                    count++;
                 }
             }
-            myArr[x++]=c;
+            ans[i]=count;
         }
-        return myArr;
+        return ans;
     }
 }
